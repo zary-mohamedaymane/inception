@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+# Make sure the directory exists as php-fgm needs it
+mkdir -p /run/php
+chown -R www-data:www-data /run/php
+
 # Wait for MariaDB to be fully operational
 echo "Waiting for MariaDB..."
 until mariadb -h"${MYSQL_HOST:-mariadb}" -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}" -e "SELECT 1;" >/dev/null 2>&1; do
